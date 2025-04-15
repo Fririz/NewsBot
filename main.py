@@ -11,23 +11,20 @@ chat_id = 688419885
 
 parser = pars.prs("https://itc.ua/techno/")
 
-print(parser)
+#print(parser)
 
-"""
-if __name__ == "__main__":
-    main()
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("Подивитись новини")
+    markup.add(btn)
+    bot.send_message(message.chat.id, "Привіт, натисні кнопку нижче щоб побачити новини", reply_markup=markup)
+
     
-markup = types.ReplyKeyboardMarkup(row_width=2)
-markup.add(types.KeyboardButton('Подивитись останні новини'), types.KeyboardButton('smthing'))
+# Обработка кнопки
+@bot.message_handler(func=lambda message: message.text == "Подивитись новини")
+def show_news(message):
+    bot.send_message(message.chat.id, parser)
 
-#bot.send_message(chat_id, "Choose one letter:", reply_markup=markup)
-
-
-
-@bot.message_handler(commands=['Подивитись останні новини'])
-def echo_all(message):
-    bot.send_message(message.chat.id, "aboba")
-
-
-bot.infinity_polling()
-"""
+# Запуск бота
+bot.polling()

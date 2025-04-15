@@ -22,12 +22,14 @@ class prs:
             filtered.append(elem.text)
         return filtered
     
-    def __str__(self):
-        return self._infToString()
-    
     def _infToString(self):
         articles = self._get_articles()
         infStr =""
         for elem in articles:
-            infStr = infStr + elem + "\n"
+            infStr = infStr + elem + "\n" * 2
         return infStr
+    
+    def __str__(self):
+        return self._infToString()
+    
+
