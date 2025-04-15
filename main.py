@@ -1,34 +1,33 @@
 
 
 import telebot
+from telebot import types
 from secr import TOKEN 
-import requests
-from bs4 import BeautifulSoup
+import pars
 
-#bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(TOKEN)
 
+chat_id = 688419885
 
+parser = pars.prs("https://itc.ua/techno/")
 
-URL = "https://itc.ua/techno/"
+print(parser)
 
-
-def get_html(url):
-    response = requests.get(url)
-    return response.text
-
-def get_articles(html):
-    soup = BeautifulSoup(html, "html.parser")
-    articles = soup.find_all("a", class_="entry-title")
-    filtered = []
-    for elem in articles:
-        filtered.append(elem.text)
-    return filtered
-
-def main():
-    html = get_html(URL)
-    articles = get_articles(html)
-    for elem in articles:
-        print(elem + "\n")
-
+"""
 if __name__ == "__main__":
     main()
+    
+markup = types.ReplyKeyboardMarkup(row_width=2)
+markup.add(types.KeyboardButton('Подивитись останні новини'), types.KeyboardButton('smthing'))
+
+#bot.send_message(chat_id, "Choose one letter:", reply_markup=markup)
+
+
+
+@bot.message_handler(commands=['Подивитись останні новини'])
+def echo_all(message):
+    bot.send_message(message.chat.id, "aboba")
+
+
+bot.infinity_polling()
+"""
