@@ -2,8 +2,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-#URL = "https://itc.ua/techno/"
-chat_id = 688419885
 
 class prs:
     def __init__(self, URL):
@@ -16,10 +14,10 @@ class prs:
     def _get_articles(self):
         html = self._get_html()
         soup = BeautifulSoup(html, "html.parser")
-        articles = soup.find_all("a", class_="entry-title")
+        articles = soup.find_all("a", class_="list-thumbs__title")
         filtered = []
         for elem in articles:
-            filtered.append(elem.text)
+            filtered.append(elem.text.strip())
         return filtered
     
     def _infToString(self):
